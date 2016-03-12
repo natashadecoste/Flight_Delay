@@ -1,0 +1,16 @@
+.combo-box:hover {
+	    -fx-background-color: firebrick;
+	    -fx-text-fill: white; 
+}
+
+
+.combo-box {
+	    -fx-cursor:hand;
+	    -fx-background-color: gray;
+	    -fx-text-fill: white; 
+	    -fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , 4.0);
+}
+
+.label {
+		-fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , 4.0);
+}

@@ -2,8 +2,12 @@ package resources;
 
 import resources.Controller;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.fxml.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -18,6 +22,7 @@ import javafx.scene.control.ComboBox;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -61,9 +66,16 @@ public class View extends Application {
 			for(int i=0;i<options.size();i++){
 				hash.add(options.get(i)[0]);
 			}
+			
+			ArrayList<String> temp = new ArrayList<String>(hash);
+			Sort.sort(temp);
+			
+			
 			//list = (ObservableList<String>) hash;
 			ObservableList<String> list;
-			list = FXCollections.observableArrayList(hash);
+			
+			list = FXCollections.observableArrayList(temp);
+
 			
 			
 			//origin combo box
@@ -80,7 +92,7 @@ public class View extends Application {
 				public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 					destination = null;
 					origin = (String) newValue;
-					comboDest.getItems().clear();
+					//comboDest.getItems().clear();
 					Controller.setOrigin(origin);
 					getDestinations();
 				} });
@@ -153,15 +165,18 @@ public class View extends Application {
 	public void getDestinations(){
 		
 		HashSet<String> hashDest = new HashSet<>();
-		for(int i=0;i<options.size();i++){
-			if (options.get(i)[0].equals(origin)){
+		for(int i=1;i<options.size();i++){
 				hashDest.add(options.get(i)[3]);
 			}
-			
-		}
+		
+		ArrayList<String> temp = new ArrayList<String>(hashDest);
+		Sort.sort(temp);
+		
+		
 		//list = (ObservableList<String>) hash;
 		ObservableList<String> Destlist;
-		Destlist = FXCollections.observableArrayList(hashDest);
+		
+		Destlist = FXCollections.observableArrayList(temp);
 		
 		comboDest.getItems().clear();
 		comboDest.getItems().addAll(Destlist);
@@ -177,6 +192,44 @@ public class View extends Application {
 			} });
 		
 		}
+	
+	public static void printPath(Iterable<Vertex> path){
+		Stage dialogStage = new Stage();
+		
+		
+		VBox p = new VBox();
+		p.setAlignment(Pos.CENTER);
+		p.setPadding(new Insets(20));
+		Text heading = new Text("The path with the least delays");
+		p.getChildren().add(heading);
+		
+		for(Vertex i: path ){			// showing all of the errors on the dialog 
+		Text n = new Text(i.toString());
+		p.getChildren().add(n);
+		}
+		
+		Scene s = new Scene(p);
+		dialogStage.setScene(s);
+		dialogStage.show();		//show the dialog box
+		
+	}
+	
+	public static void printErr(){
+		Stage dialogStage = new Stage();
+		
+		
+		VBox p = new VBox();
+		p.setAlignment(Pos.CENTER);
+		p.setPadding(new Insets(20));
+		Text heading = new Text("No path to between these airports");
+		p.getChildren().add(heading);
+		
+		
+		Scene s = new Scene(p);
+		dialogStage.setScene(s);
+		dialogStage.show();		//show the dialog box
+		
+	}
 		
 
 	

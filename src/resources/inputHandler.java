@@ -59,6 +59,7 @@ public class inputHandler {
 		try {
 
 			br = new BufferedReader(new FileReader(fileName));
+			line = br.readLine();
 			while ((line = br.readLine()) != null) {
 
 			    // use comma as separator

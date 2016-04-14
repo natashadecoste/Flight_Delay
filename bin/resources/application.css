@@ -14,3 +14,11 @@
 .label {
 		-fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , 4.0);
 }
+
+.button {
+		-fx-cursor:hand;
+		-fx-background-color: gray;
+		-fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , 4.0);
+		
+	
+}
